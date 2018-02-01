@@ -6,7 +6,7 @@
 ### Introduction
 The Logic Block is a tiny program modul. This modul can be connected with other modules using the visual LogicCrafting editor within the Reality Editor. As such you can think about the Logic Block as one function within a programm. The visual editor allows you to connect your function with other functions to form a small program unit. 
 
-###Importent to know
+### Importent to know
 
 + Logic Blocks are realtime data-flow programs. This means, that data flow will call your program modul as often as 60 times per second.
 + Logic Blocks are bound to your Reality Server. This means, that the Reality Editor can use your block only with the Logic Nodes that are saved to and Object hostet in your Server. However the Logic Nodes can be connected with any other object hostet in any other server.
