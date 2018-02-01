@@ -1,20 +1,27 @@
-
-
-
 # How to Create a Logic Block
+&nbsp;1. Introduction
+<br>&nbsp;2. Importent to Know
+<br>&nbsp;3. Logic Block Components
+<br>&nbsp;4. Program Module (index.js) 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1. generalProperties
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.2. setup
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.3. render
+<br>&nbsp;5. Icon and Label
+<br>&nbsp;6. Index.html
 
-### Introduction
+
+### 1. Introduction
 The Logic Block is a tiny program modul. This modul can be connected with other modules using the visual LogicCrafting editor within the Reality Editor. As such you can think about the Logic Block as one function within a programm. The visual editor allows you to connect your function with other functions to form a small program unit. 
 
 You can learn more about how to use a Logic Block here:<br>
 http://realityeditor.org/getting-started/
 
-###Importent to know
+### 2. Importent to Know
 
 + Logic Blocks are realtime data-flow programs. This means that data flow will call your program module as often as 60 times per second.
 + Logic Blocks are bound to your Reality Server. This means that the Reality Editor can use your block only with the Logic Nodes that are saved to an Object hosted on your Server. However, the Logic Nodes can be connected with any other object hosted in any other server.
 
-### Logic Block Components
+### 3. Logic Block Components
 Each Logic Block is stored in the folder `libraries/logicBlocks/YourBlockName`
 YourBlockName should be the name of the block you want to create. The folder has the following content:
 
@@ -25,7 +32,7 @@ YourBlockName should be the name of the block you want to create. The folder has
 
 Given these four components, your Logic Block will automatically be discovered, activated and exposed to the Reality Editor LogicCrafting interface.
 
-### Program Module (index.js)
+### 4. Program Module (index.js)
 The index.js file has three important program parts.
 
 1. A JSON object called `generalProperties` that defines all global and default properties of the Logic Block.
@@ -33,7 +40,7 @@ The index.js file has three important program parts.
 3. A `render` function that is called each time a new data packages flows through the Logic Block
 
 
-#### generalProperties 
+#### 4.1. generalProperties 
 ```
 var generalProperties = {
     name : "scale",
@@ -53,19 +60,19 @@ var generalProperties = {
 |  Variable | Functionality |
 |:-- |:--|
 | name     |  The Name of your Logic Block. It should match with the name of your Logic Block Folder |   
-| blockSize      | Sets the width of your Logic Block. Possible values are 1, 2, 3 and 4      |
+| blockSize      | Sets the width of your Logic Block. Possible values are 1, 2, 3 and 4      |    
 | privateData | privateData is instantiated by every single logic Block stored in a Logic Node. Data stored in this object is never exposed to the Reality Editor or other Servers. Use privateData to store login credentials for web services and so on. |   
-| publicData | publicData is instantiated by every single logic Block stored in a Logic Node. Use publicData to store default values and persistent data that should be used every time your logicBlock is triggered. For example, if you want to provide a setup method to set scaling for a scaling block, then you would add a value in publicData to store this setting. Your program will make use of this data, every time it is called. |
+| publicData | publicData is instantiated by every single logic Block stored in a Logic Node. Use publicData to store default values and persistent data that should be used every time your logicBlock is triggered. For example, if you want to provide a setup method to set scaling for a scaling block, then you would add a value in publicData to store this setting. Your program will make use of this data, every time it is called. |   
 | activeInputs     |  This tells the Reality Editor if the block input is active. Because each block can range from one to four block sizes, activeInputs has four values. Think about your block spanning the range of 4 blocks; you will have four possible inputs. With this setting, you can define which of the inputs are active and linkable. |
-| activeOutputs      | The same as for activeInputs, just with the outputs    |
+| activeOutputs      | The same as for activeInputs, just with the outputs    |    
 | iconImage     |  Defines the file used as iconImage |    
-| nameInput     |  Give every possible input on your block a name. |
+| nameInput     |  Give every possible input on your block a name. |    
 | nameOutput    |  Give every possible output of your block a name. |    
 | type   |  Define the type of your block. This is usually equal to your block name |    
 
       
 
-#### setup
+#### 4.2. setup
 ```
 exports.setup = function (object,logic, block, activeBlockProperties){
 // add code here that should be executed once.
@@ -82,10 +89,10 @@ The following parameters are handed over to the setup function:
 | object     |  UUID for the Object in which the Logic Node is operating. |   
 | logic     |  UUID for the Logic Node in which the Logic Block is operating. |   
 | block     |  UUID for the Logic Block |   
-| activeBlockProperties     |  access to the properties saved for the single instance of a Logic Block. The activeBlockProperties is a copy of **generalProperties**.  |
+| activeBlockProperties     |  access to the properties saved for the single instance of a Logic Block. The activeBlockProperties is a copy of **generalProperties**.  |   
 
 
-#### render
+#### 4.3. render
 ```
 exports.render = function (object, node, block, index, thisBlock, callback) {
 
@@ -112,7 +119,7 @@ Function Parameter:
 | object     |  UUID for the Object in which the Logic Node is operating. |   
 | node     |  UUID for the Logic Node in which the Logic Block is operating. |   
 | block     |  UUID for the Logic Block |   
-| index     |  Each logic Block data value is organized in an array of four. For example, if the block spans three block sizes, it will have three data values stored in this array. The index tells the render function on which data value the function call is executed. |
+| index     |  Each logic Block data value is organized in an array of four. For example, if the block spans three block sizes, it will have three data values stored in this array. The index tells the render function on which data value the function call is executed. |   
 | thisBlock     |  Pointer to the Logic Block instance. This instance has the following attributes: <br> **data[index]**: The data object to be processed by the Logic Block <br> **publicData**: copy of the generalProperties publicData  <br> **processedData[index]**:  Processed data object should be stored here, before the callback is called. |   
 | callback     |  Callback to be called for when data is processed |   
 
@@ -125,7 +132,7 @@ CallBack Parameter:
 | object     |  UUID for the Object in which the Logic Node is operating. |   
 | node     |  UUID for the Logic Node in which the Logic Block is operating. |   
 | block     |  UUID for the Logic Block |   
-| index     |  Each logic Block data value is organized in an array of four. For example, if the block spans three block sizes, it will have three data values stored in this array. The index tells the render function on which data value the function call is executed. **The callback can be called multiple times with different index, in case more then one output is triggered.**  |
+| index     |  Each logic Block data value is organized in an array of four. For example, if the block spans three block sizes, it will have three data values stored in this array. The index tells the render function on which data value the function call is executed. **The callback can be called multiple times with different index, in case more then one output is triggered.**  |  
 | thisBlock     |  Pointer to the executed block |   
 
 Finally, you may want to know how the data object looks like:
@@ -145,11 +152,11 @@ function Data() {
 | value     |  This is the number you want to process. Keep in mind that the editor only processes floating point values between 0.0 and 1.0 |   
 | mode     |  f = floating point |   
 | unit     |  You can add a unit like "cm" or "F" |   
-| unitMin     | Since the editor only uses 0.0 ~1.0 you can define a minimum in case you want to scale back to the original scale. |
-| unitMax    |  Since the editor only uses 0.0 ~1.0 you can define a maximum in case you want to scale back to the original scale. |
+| unitMin     | Since the editor only uses 0.0 ~1.0 you can define a minimum in case you want to scale back to the original scale. |   
+| unitMax    |  Since the editor only uses 0.0 ~1.0 you can define a maximum in case you want to scale back to the original scale. |   
 
 
-### Icon and Label
+### 5. Icon and Label
 Open `libraries/blockIconTemplates.pdf` in Adobe Illustrator.
 It should look like this:
 
@@ -159,7 +166,7 @@ Each of the templates is a separate page. You can save each as a separate SVG de
 
 Note that the dotted line shows the input and the output. As a Style guide, try to use the dotted line to indicate how the data is flowing through your Logic Block.
 
-### Index.html
+### 6. Index.html
 This page is used for setup and open when you tap on a logic node currently in use. You can use this page to login to services or adjust data stored in the publicData object.
 
 ```
