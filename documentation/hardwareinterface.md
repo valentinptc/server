@@ -54,15 +54,15 @@ if (exports.enabled) {
 
 You can use the following API to program your hardware interface:
 
-| API | functionality | example |
-|:-- |:-- |:-- |
-|`enableDeveloperUI([boolean])`|Enables the developer mode for all objects and enables the developer web interface.| <pre>server.enableDeveloperUI(true);<br></pre>|
-|`addNode(object, node, type)`| Adds a new node to an object. If the object does not jet exist, the object is created as well.| <pre>server.addNode("legoCar",<br> "sensor", "node");</pre>|
+| API | functionality |
+|:-- |:-- |
+|`enableDeveloperUI([boolean])`|Enables the developer mode for all objects and enables the developer web interface.<br><br>Example:<br><pre>server.enableDeveloperUI(true);<br></pre>|
+|`addNode(object, node, type)`| Adds a new node to an object. If the object does not jet exist, the object is created as well. <br><br>Example:<br> <pre>server.addNode("legoCar", "sensor", "node");</pre>|
 |`renameNode(object, oldNode, newNode)`| Renames a node within an object. This change is pushed in realtime to the Reality Editor and can help with plug and play interfaces. | <pre>server.renameNode("legoCar",<br> "sensor", "motor");</pre>|
-|`activate(object)`| Activates an object to be processed and broadcasted. | <pre>server.activate("legoCar");</pre>|
-|`deactivate(object)`| Deactivates an object so its data is no longer processed and broadcasred to the Reality Editor.| <pre> server.deactivate("legoCar");</pre>|
-|`write(object, node, value,`<br>` mode, unit, unitMin, unitMax)`| This function writes the values passed from the hardware interface to the Reality Server. `Mode` specifies the datatype of value. Currently the mode is `f`for floatingpoint. Mode, unit, unitMin, and unitMax are currently optional, and will respectively take on default values of 'f', false, 0, and 1.| <pre> server.write("legoCar",<br> "motor", value, "f");</pre>|
-|`addReadListener(object, node, CB)`| This function attaches a callback `CB` to an objects's node to listen for new values it receives and process them accordingly.| <pre>server.addReadListener("legoCar",<br> "sensor", function (data) {<br>  console.log(data.value);<br>});</pre>|
+|`activate(object)`| Activates an object to be processed and broadcasted.  <br><br>Example:<br> <pre>server.activate("legoCar");</pre>|
+|`deactivate(object)`| Deactivates an object so its data is no longer processed and broadcasred to the Reality Editor. <br><br>Example:<br> <pre> server.deactivate("legoCar");</pre>|
+|`write(object, node, value, mode, unit, unitMin, unitMax)`| This function writes the values passed from the hardware interface to the Reality Server. `Mode` specifies the datatype of value. Currently the mode is `f`for floatingpoint. Mode, unit, unitMin, and unitMax are currently optional, and will respectively take on default values of 'f', false, 0, and 1. <br><br>Example:<br> <pre> server.write("legoCar", "motor", value, "f");</pre>|
+|`addReadListener(object, node, CB)`| This function attaches a callback `CB` to an objects's node to listen for new values it receives and process them accordingly. <br><br>Example:<br> | <pre>server.addReadListener("legoCar",<br> "sensor", function (data) {<br>  console.log(data.value);<br>});</pre>|
 |`removeReadListeners(object)`|Removes the callbacks attached to an object by addReadListener.|<pre>server.removeReadListeners("legoCar");</pre>|
 |`addEventListener(option, callBack)`|Listens for specific events from the server. At this moment, option can be either `reset` or `shutdown`.|<pre>server.addEventListener('shutdown',<br> function() {<br>  console.log('shutting down');<br>});</pre>|
 |`map(value, in_min, in_max,`<br>` out_min, out_max)`|Remaps the value of x from the range of `[in_min, in_max]` to the range of `[out_min, out_max]`|<pre>var scaledValue = <br>server.map(data.value,<br> 0, 1, -100, 100);</pre>| 
