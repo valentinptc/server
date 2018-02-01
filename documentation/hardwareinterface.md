@@ -1,9 +1,15 @@
 # How to use Hardware Interfaces
 
-### Introduction
+1. Introduction
+2. Quick Start
+3. Arduino Uno Hardware Interface
+4. Make your own Hardware Interface
+
+
+### 1. Introduction
 The hardwareInterface is how the Reality Server communicates with the physical world. If you want to connect to an Arduino board, there is an Arduino hardware interface. If you want to talk to Philips Hue lights, there is a hardware interface and so on.
 
-### Quick Start
+### 2. Quick Start
 The hardware interfaces are stored in the folder `hardwareInterfaces/`. Each hardwareInterface is hosted in a folder with its name and an `index.js` file.
 
 If you want to activate a hardware interface you have to open the index.js file within your hardware interface folder and set the first variable to `true`.
@@ -17,7 +23,7 @@ Hardware interface like wedo2 (Lego WeDo2.0) and hueStart (Interface for Philips
 
 Once your Hardware interface is activated you should configure your objects target files as well the AR-GUI using the developer FrontEnd interface. Once your server is started, you can find the FrontEnd interface with this address: `localhost:8080`
 
-### Arduino Uno hardware interface
+### 3. Arduino Uno hardware interface
 The Arduino Uno hardware interface is a special interface that comes with an additional Arduino library. Once you have activated the Arduino Uno hardware interface, you can use that library to program new objects and nodes as well send and receive data.
 
 How to:
@@ -38,7 +44,7 @@ HybridObject obj;
 |`obj.write([object], [node], [value])` | Within the Arduino loop() function you can use .write() to write data to a node. All values are floating point in the range between 0.0 and 1.0. |<pre>void setup(){<br> obj.developer();<br> obj.add("myObject", "led");<br>}<br>void loop() {<br> int output = 123;<br> obj.write("myObject", "sensor", output);<br>}</pre>|
 |`obj.map([value], [min], [max])` | Since all data is floating point between 0.0 and 1.0, the map function scales your data in to this scale. For example if you have a range between 0 and 100 and your value is 50 map() will return 0.5. |<pre>void setup() {<br>}<br>void loop() {<br> int input = 123;<br> float output = obj.map(input, 0,200);<br>}</pre>|
 
-### Make your own Hardware Interface
+### 4. Make your own Hardware Interface
 1. To make your own hardware interface, create a new folder with your hardware interface name within the `hardwareInterfaces` folder.
 2. Create an `index.js` file with the following structure:
 
