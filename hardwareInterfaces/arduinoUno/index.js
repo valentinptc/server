@@ -50,11 +50,12 @@ if (exports.enabled) {
     var server = require(__dirname + '/../../libraries/hardwareInterfaces');
 
 
+
     const serialBaudRate = 115200; // baud rate for connection to arudino
 
     // change this to what ever is your Arudino Serial Port
 
-    const serialSource = "/dev/cu.usbmodem1411"; // this is pointing to the arduino
+    const serialSource = "/dev/cu.usbmodem146141"; // this is pointing to the arduino
 
     function ArduinoIndex() {
         this.objName = null;
@@ -68,22 +69,49 @@ if (exports.enabled) {
     var serialPortOpen = false;
 
     //initialisation of the socket connection
-    var SerialP = serialport.SerialPort; // localize object constructor
+   /* var SerialP = serialport.SerialPort; // localize object constructor
     var serialPort = new SerialP(serialSource, {
         parser: serialport.parsers.readline("\n"),
         baudrate: serialBaudRate
     }, false);
+    */
+    const SerialPort = require('serialport');
+    const Readline = SerialPort.parsers.Readline;
 
-    serialPort.on('error', function (err) {
-        console.error("Serial port error", err);
+    var serialPort;
+
+    var _this = this;
+
+    SerialPort.list().then(function(ports) {
+        for(var i = 0; i < ports.length; i++){
+            if(ports[i].manufacturer){
+                 if(ports[i].manufacturer.includes("Arduino")) {
+                     serialPort = new SerialPort(ports[i].comName, {
+                         baudRate: 19200
+                     });
+                     serialPort.on('error', function (err) {
+                         console.error("Serial port error", err);
+                     });
+                     serialServer(serialPort);
+                     break;
+                }
+            }
+        }
+    }).catch(function (err) {
+        // return err;  // code doesn't come here
     });
 
-    serialServer(serialPort);
-
     function serialServer(serialPort) {
+
+        const parser = serialPort.pipe(new Readline({ delimiter: '\n' }));
+        parser.on('data', function (data){
+            // get a buffer of data from the serial port
+            // console.log(data,"test");
+        });
         if (server.getDebug()) console.log("opneserial");
-        serialPort.open();
-        serialPort.on("open", function () {
+       // serialPort.open();
+
+        serialPort.on('open', function () {
 
             if (server.getDebug()) console.log('Serial port opened');
             serialPortOpen = true;
@@ -100,8 +128,9 @@ if (exports.enabled) {
             var amount = 0;
             //var okCounter = 0;
 
-            serialPort.on('data', function (data) {
-              //  console.log(data);
+        parser.on('data', function (data) {
+          // console.log(data.toString());
+            //   console.log(data);
                 switch (dataSwitch) {
                     case 0:
                         if (data === "f") {
@@ -198,16 +227,13 @@ if (exports.enabled) {
                             FullLookup[thisObjectID][thisObjectID+pos] = arrayID;
 
                            // console.log("dddddsasdasdasdasdasdasdasdasdasdsd ",obj, pos);
+
                             server.addReadListener(obj, pos, function (obj,pos,node,data) {
                              //   console.log(obj,pos,data);
                               serialSender(serialPort, obj, pos, data.value, "f");
                             }.bind(data,thisObjectID,thisObjectID+pos,"node"));
 
                         }
-
-
-
-
 
                         dataSwitch = 0;
                         break;
