@@ -6,6 +6,9 @@
 ### Introduction
 The Logic Block is a tiny program modul. This modul can be connected with other modules using the visual LogicCrafting editor within the Reality Editor. As such you can think about the Logic Block as one function within a programm. The visual editor allows you to connect your function with other functions to form a small program unit. 
 
+You can learn more about how to use a Logic Block here:<br>
+http://realityeditor.org/getting-started/
+
 ###Importent to know
 
 + Logic Blocks are realtime data-flow programs. This means, that data flow will call your program modul as often as 60 times per second.
