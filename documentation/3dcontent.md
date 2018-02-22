@@ -55,3 +55,7 @@ Follow the tutorial on this page:
 http://realityeditor.org/building-objects-101/
 
 (Scrall down to: **Adding a Target**)
+
+### Exploring the Reality Editor API
+Here is a list of all the Web-Content APIs that are implemented in this public version of the Reality Editor:
+http://realityeditor.org/reference-javascript/
