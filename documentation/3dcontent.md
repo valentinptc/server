@@ -24,10 +24,10 @@ If you want to load 3D content, the Reality Editor provides API's that allows yo
 
 2. Open the Reality Editor and point it at these two Targets:
 
-####3D Content
+#### 3D Content
 ![3D Object](https://raw.githubusercontent.com/valentinptc/server/master/objects/3DBall/target/target.jpg)
 
-#####2D Content
+##### 2D Content
 ![3D Object](https://raw.githubusercontent.com/valentinptc/server/master/objects/YouTubeVideo/target/target.jpg)
 
 
