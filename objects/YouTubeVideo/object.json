@@ -1,0 +1,21 @@
+{
+	"objectId": "YouTubeVideorvajtl6qfunf",
+	"name": "YouTubeVideo",
+	"ip": "192.168.56.3",
+	"version": "1.7.6",
+	"deactivated": false,
+	"protocol": "R1",
+	"tcs": "2YlFrw",
+	"x": 3.5492307270797028,
+	"y": -9.835897668759571,
+	"scale": 0.8217612714404172,
+	"matrix": [],
+	"visible": false,
+	"visibleText": false,
+	"visibleEditing": false,
+	"developer": true,
+	"memory": {},
+	"links": {},
+	"nodes": {},
+	"frames": {}
+}
