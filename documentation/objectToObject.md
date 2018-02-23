@@ -3,13 +3,13 @@
 2. Installation
 3. QuickStart
 4. Get 3D Matrix
-5. Send and Recive Messages to all visible Objects
+5. Send and Receive Messages to all visible Objects
 6. Calculate Distance and Orientation
-7. Apendix
+7. Appendix
 
 
 ### 1. Introduction
-For the Reality Editor, every vuforia target is a separate webpage (object). The Reality Editor provides APIs that allow all visible webpages to communicate to provide the look and feel of one big application, while loading the content when needed. The following example shows two objects communicating their AR possition. Each object uses this info to calculate and display distance and orientiation.
+For the Reality Editor, every Vuforia Target is a separate webpage (object). The Reality Editor provides APIs that allow all visible web pages to communicate to provide the look and feel of one big application while loading the content when needed. The following example shows two objects communicating their AR position. Each object uses this info to calculate and display distance and orientation.
 
 
 ### 2. Installation
@@ -43,7 +43,7 @@ Subscribe to Projection and Model View Matrix:
   
 
 
-### Send and Recive Messages to all visible Objects
+### Send and Receive Messages to all visible Objects
 To send a message to all objects:
 
     obj.sendGlobalMessage(msg);
@@ -51,7 +51,7 @@ To send a message to all objects:
 Receive messages:
   
     obj.addGlobalMessageListener(function(msg){
-		
+        
     });
     
 
@@ -83,5 +83,5 @@ Receive messages:
     });
     
 
-### Apendix
+### Appendix
 http://realityeditor.org/reference-javascript/
