@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Default UI</title>
+</head>
+<body>
+
+<canvas id="myCanvas" width="500" height="500" style="border:0px">
+	Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+    var thisM = {x:0,y:0,z:0};
+    var mV = {x:0,y:0,z:0};
+    var m1 = null;
+    var distance = 0;
+    var angle = 0;
+    var obj = new HybridObject();
+    obj.subscribeToMatrix();
+    obj.addMatrixListener(function(m,p){
+        m1 = m;
+        thisM.x =m[12];
+        thisM.y =m[13];
+        thisM.z =m[14];
+        obj.sendGlobalMessage({object: realityObject.object, x:m[12],y:m[13],z:m[14]});
+    });
+
+    obj.addGlobalMessageListener(function(msg){
+
+        mV.x =(thisM.x-msg.x);
+        mV.y =(thisM.y-msg.y);
+        mV.z =(thisM.z-msg.z);
+
+        distance =   Math.sqrt(Math.pow(mV.x, 2) + Math.pow(mV.y, 2) + Math.pow(mV.z, 2));
+        angle = Math.atan2(mV.x,mV.y)  - toAxisAngle(m1)[2] +Math.PI;
+
+    });
+
+   function  toAxisAngle(matrix) {
+        var rX = Math.atan(matrix[6], matrix[10]);
+        var rY = Math.atan(matrix[2], matrix[10]);
+        var rZ = Math.atan2(matrix[1], matrix[5]);
+        return [rX, rY, rZ];
+    };
+
+
+    function step() {
+        drawCircle();
+        window.requestAnimationFrame(step);
+    }
+    window.requestAnimationFrame(step);
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var center = [c.width/2, c.height/2];
+    var circleRadius = 145;
+
+    ctx.strokeStyle="rgba(0,255,255,1.0)";
+    ctx.fillStyle="rgba(0,255,255,1.0)";
+    ctx.lineWidth=16;
+
+    function drawCircle(){
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(center[0], center[1], circleRadius, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.translate(center[0], center[1]);
+        ctx.rotate(Math.PI-angle);
+        ctx.font = "800 60px Helvetica";
+        ctx.textAlign = "center";
+        ctx.fillText(parseInt(distance).toString(),0,20);
+        ctx.translate(0, circleRadius);
+        ctx.beginPath();
+        ctx.moveTo(-100, -30);
+        ctx.lineTo(0, 5);
+        ctx.lineTo(100, -30);
+        ctx.lineTo(0, 100);
+        ctx.fill();
+        ctx.restore();
+    }
+</script>
+
+</body>
+</html>
+

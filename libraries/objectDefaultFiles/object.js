@@ -101,9 +101,6 @@ window.addEventListener("message", function (MSG) {
 
 realityObject.messageCallBacks.mainCall = function (msgContent) {
 
-    console.log("------------------------------");
-    console.log(msgContent);
-
     if (typeof msgContent.node !== "undefined") {
 
         if (realityObject.sendFullScreen === false) {
